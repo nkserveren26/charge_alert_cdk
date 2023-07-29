@@ -1,17 +1,19 @@
 import { CfnBudget } from "aws-cdk-lib/aws-budgets";
 import { Construct } from "constructs";
+import { BudgetParam } from "./interfaces";
 
 export class BudgetsCreator {
-    public static createBudgets(self: Construct, budgetsName: string) {
-        const budgets = new CfnBudget(self, budgetsName, {
+    public static createBudgets(self: Construct, budgetsParam: BudgetParam) {
+        const budgets = new CfnBudget(self, budgetsParam.budgetsName, {
             budget: {
-                budgetType: "COST",
-                timeUnit: "MONTHLY",
+                budgetType: budgetsParam.budgetsType,
+                timeUnit: budgetsParam.timeUnit,
                 budgetLimit: {
-                    amount: 80,
-                    unit: 'USD',
+                    amount: budgetsParam.budgetAmount,
+                    unit: budgetsParam.unit,
                 },
             },
         });
+        return budgets;
     }
 }
