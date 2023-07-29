@@ -2,6 +2,7 @@ import * as cdk from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 import { BudgetsCreator } from './services/budgets/creator';
 import { BudgetParam } from './services/budgets/interfaces';
+import { CfnBudget } from 'aws-cdk-lib/aws-budgets';
 // import * as sqs from 'aws-cdk-lib/aws-sqs';
 
 export class ChargeAlertStack extends cdk.Stack {
@@ -18,6 +19,6 @@ export class ChargeAlertStack extends cdk.Stack {
     };
 
     //Budgetsの作成
-    const budgets = BudgetsCreator.createBudgets(this,budgetsParam);
+    const budgets: CfnBudget = BudgetsCreator.createBudgets(this,budgetsParam);
   }
 }
