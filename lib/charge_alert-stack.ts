@@ -1,16 +1,23 @@
 import * as cdk from 'aws-cdk-lib';
 import { Construct } from 'constructs';
+import { BudgetsCreator } from './services/budgets/creator';
+import { BudgetParam } from './services/budgets/interfaces';
 // import * as sqs from 'aws-cdk-lib/aws-sqs';
 
 export class ChargeAlertStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
-    // The code that defines your stack goes here
+    //Budgetsのパラメーター
+    const budgetsParam: BudgetParam = {
+      budgetsName: "testbudget_cdk",
+      budgetsType: "COST",
+      timeUnit: "MONTHLY",
+      budgetAmount: 80,
+      unit: "USD",
+    };
 
-    // example resource
-    // const queue = new sqs.Queue(this, 'ChargeAlertQueue', {
-    //   visibilityTimeout: cdk.Duration.seconds(300)
-    // });
+    //Budgetsの作成
+    const budgets = BudgetsCreator.createBudgets(this,budgetsParam);
   }
 }
