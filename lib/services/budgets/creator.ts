@@ -3,7 +3,7 @@ import { Construct } from "constructs";
 import { BudgetParam } from "./interfaces";
 
 export class BudgetsCreator {
-    public static createBudgets(self: Construct, budgetsParam: BudgetParam) {
+    public static createBudgets(self: Construct, budgetsParam: BudgetParam): CfnBudget {
         const budgets = new CfnBudget(self, budgetsParam.budgetsName, {
             budget: {
                 budgetType: budgetsParam.budgetsType,
