@@ -5,7 +5,7 @@ import { BudgetParam } from './services/budgets/interfaces';
 import { CfnBudget } from 'aws-cdk-lib/aws-budgets';
 import { SNSCreator } from './services/sns/creator';
 import { Topic } from 'aws-cdk-lib/aws-sns';
-// import * as sqs from 'aws-cdk-lib/aws-sqs';
+import { fields } from './fields';
 
 export class ChargeAlertStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
@@ -22,6 +22,9 @@ export class ChargeAlertStack extends cdk.Stack {
 
     //Budgetsのアラート用SNS Topicを作成
     const SNSTopic: Topic = SNSCreator.createSNSTopic(this, "budgetsAlertTopic");
+
+    //SNS Topicにメールアドレスをサブスクライブ
+    SNSCreator.addEmailSubscription(SNSTopic, fields.notification_email);
 
     //アラート通知の設定用パラメーター
     const notificationsParams: CfnBudget.NotificationWithSubscribersProperty[] = [

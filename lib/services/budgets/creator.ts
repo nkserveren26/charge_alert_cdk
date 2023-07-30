@@ -1,7 +1,6 @@
 import { CfnBudget } from "aws-cdk-lib/aws-budgets";
 import { Construct } from "constructs";
 import { BudgetParam } from "./interfaces";
-import { Topic } from "aws-cdk-lib/aws-sns";
 
 export class BudgetsCreator {
     public static createBudgets(
