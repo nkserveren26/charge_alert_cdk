@@ -1,9 +1,13 @@
 import { CfnBudget } from "aws-cdk-lib/aws-budgets";
 import { Construct } from "constructs";
 import { BudgetParam } from "./interfaces";
+import { Topic } from "aws-cdk-lib/aws-sns";
 
 export class BudgetsCreator {
-    public static createBudgets(self: Construct, budgetsParam: BudgetParam): CfnBudget {
+    public static createBudgets(
+        self: Construct, 
+        budgetsParam: BudgetParam,
+        topic: Topic): CfnBudget {
         const budgets: CfnBudget = new CfnBudget(self, budgetsParam.budgetsName, {
             budget: {
                 budgetType: budgetsParam.budgetsType,
@@ -13,6 +17,20 @@ export class BudgetsCreator {
                     unit: budgetsParam.unit,
                 },
             },
+            notificationsWithSubscribers: [
+                {
+                    notification: {
+                        comparisonOperator: 'GREATER_THAN',
+                        notificationType: 'FORECASTED',
+                        threshold: 80,
+                        thresholdType: 'PERCENTAGE',
+                    },
+                    subscribers: [{
+                        subscriptionType: 'SNS',
+                        address: topic.topicArn,
+                    }],
+                },
+            ],
         });
         return budgets;
     }
