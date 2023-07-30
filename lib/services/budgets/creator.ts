@@ -7,7 +7,7 @@ export class BudgetsCreator {
     public static createBudgets(
         self: Construct, 
         budgetsParam: BudgetParam,
-        topic: Topic): CfnBudget {
+        notificationsSubscribers: CfnBudget.NotificationWithSubscribersProperty[]): CfnBudget {
         const budgets: CfnBudget = new CfnBudget(self, budgetsParam.budgetsName, {
             budget: {
                 budgetType: budgetsParam.budgetsType,
@@ -17,20 +17,7 @@ export class BudgetsCreator {
                     unit: budgetsParam.unit,
                 },
             },
-            notificationsWithSubscribers: [
-                {
-                    notification: {
-                        comparisonOperator: 'GREATER_THAN',
-                        notificationType: 'FORECASTED',
-                        threshold: 80,
-                        thresholdType: 'PERCENTAGE',
-                    },
-                    subscribers: [{
-                        subscriptionType: 'SNS',
-                        address: topic.topicArn,
-                    }],
-                },
-            ],
+            notificationsWithSubscribers: notificationsSubscribers,
         });
         return budgets;
     }

@@ -21,9 +21,25 @@ export class ChargeAlertStack extends cdk.Stack {
     };
 
     //Budgetsのアラート用SNS Topicを作成
-    const SNSTopic: Topic = SNSCreator.createSNSTopic(this,"budgetsAlertTopic");
+    const SNSTopic: Topic = SNSCreator.createSNSTopic(this, "budgetsAlertTopic");
+
+    //アラート通知の設定用パラメーター
+    const notificationsParams: CfnBudget.NotificationWithSubscribersProperty[] = [
+      {
+        notification: {
+          comparisonOperator: 'GREATER_THAN',
+          notificationType: 'FORECASTED',
+          threshold: 80,
+          thresholdType: 'PERCENTAGE',
+        },
+        subscribers: [{
+          subscriptionType: 'SNS',
+          address: SNSTopic.topicArn,
+        }],
+      },
+    ];
 
     //Budgetsの作成
-    const budgets: CfnBudget = BudgetsCreator.createBudgets(this,budgetsParam, SNSTopic);
+    const budgets: CfnBudget = BudgetsCreator.createBudgets(this,budgetsParam, notificationsParams);
   }
 }
