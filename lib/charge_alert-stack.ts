@@ -27,13 +27,13 @@ export class ChargeAlertStack extends cdk.Stack {
     const notificationsParams: CfnBudget.NotificationWithSubscribersProperty[] = [
       {
         notification: {
-          comparisonOperator: 'GREATER_THAN',
-          notificationType: 'FORECASTED',
+          comparisonOperator: "GREATER_THAN",
+          notificationType: "FORECASTED",
           threshold: 80,
-          thresholdType: 'PERCENTAGE',
+          thresholdType: "PERCENTAGE",
         },
         subscribers: [{
-          subscriptionType: 'SNS',
+          subscriptionType: "SNS",
           address: SNSTopic.topicArn,
         }],
       },
