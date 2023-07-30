@@ -9,6 +9,7 @@ export class BudgetsCreator {
         notificationsSubscribers: CfnBudget.NotificationWithSubscribersProperty[]): CfnBudget {
         const budgets: CfnBudget = new CfnBudget(self, budgetsParam.budgetsName, {
             budget: {
+                budgetName: budgetsParam.budgetsName,
                 budgetType: budgetsParam.budgetsType,
                 timeUnit: budgetsParam.timeUnit,
                 budgetLimit: {
