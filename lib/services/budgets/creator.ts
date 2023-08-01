@@ -16,8 +16,13 @@ export class BudgetsCreator {
                     amount: budgetsParam.budgetAmount,
                     unit: budgetsParam.unit,
                 },
-                timePeriod: {
-                    start: 'PAST_MONTH',
+                autoAdjustData: {
+                    autoAdjustType: 'autoAdjustType',
+
+                    // the properties below are optional
+                    historicalOptions: {
+                        budgetAdjustmentPeriod: 6,
+                    },
                 }
             },
             notificationsWithSubscribers: notificationsSubscribers,
