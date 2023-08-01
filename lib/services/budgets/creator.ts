@@ -3,7 +3,7 @@ import { Construct } from "constructs";
 import { BudgetParam } from "./interfaces";
 
 export class BudgetsCreator {
-    public static createBudgets(
+    public static createHalfYearAverageBudgets(
         self: Construct, 
         budgetsParam: BudgetParam,
         notificationsSubscribers: CfnBudget.NotificationWithSubscribersProperty[]): CfnBudget {

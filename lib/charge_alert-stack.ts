@@ -43,6 +43,6 @@ export class ChargeAlertStack extends cdk.Stack {
     ];
 
     //Budgetsの作成
-    const budgets: CfnBudget = BudgetsCreator.createBudgets(this,budgetsParam, notificationsParams);
+    const budgets: CfnBudget = BudgetsCreator.createHalfYearAverageBudgets(this,budgetsParam, notificationsParams);
   }
 }
