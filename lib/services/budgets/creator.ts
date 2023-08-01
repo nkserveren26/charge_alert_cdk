@@ -12,12 +12,8 @@ export class BudgetsCreator {
                 budgetName: budgetsParam.budgetsName,
                 budgetType: budgetsParam.budgetsType,
                 timeUnit: budgetsParam.timeUnit,
-                budgetLimit: {
-                    amount: budgetsParam.budgetAmount,
-                    unit: budgetsParam.unit,
-                },
                 autoAdjustData: {
-                    autoAdjustType: 'autoAdjustType',
+                    autoAdjustType: "HISTORICAL",
 
                     // the properties below are optional
                     historicalOptions: {
