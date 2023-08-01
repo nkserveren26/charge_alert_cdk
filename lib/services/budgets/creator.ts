@@ -16,6 +16,9 @@ export class BudgetsCreator {
                     amount: budgetsParam.budgetAmount,
                     unit: budgetsParam.unit,
                 },
+                timePeriod: {
+                    start: 'PAST_MONTH',
+                }
             },
             notificationsWithSubscribers: notificationsSubscribers,
         });
