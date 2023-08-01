@@ -32,7 +32,7 @@ export class ChargeAlertStack extends cdk.Stack {
         notification: {
           comparisonOperator: "GREATER_THAN",
           notificationType: "FORECASTED",
-          threshold: 80,
+          threshold: 150,
           thresholdType: "PERCENTAGE",
         },
         subscribers: [{
