@@ -6,6 +6,7 @@ import { CfnBudget } from 'aws-cdk-lib/aws-budgets';
 import { SNSCreator } from './services/sns/creator';
 import { Topic } from 'aws-cdk-lib/aws-sns';
 import { fields } from './fields';
+import { Role, ServicePrincipal } from 'aws-cdk-lib/aws-iam';
 
 export class ChargeAlertStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
@@ -19,6 +20,11 @@ export class ChargeAlertStack extends cdk.Stack {
       budgetAmount: 5,
       unit: "USD",
     };
+
+    const chatbotRole = new Role(this, "chatbot-role", {
+      roleName: "chatbot-role",
+      assumedBy: new ServicePrincipal("sns.amazonaws.com"),
+    });
 
     //Budgetsのアラート用SNS Topicを作成
     const SNSTopic: Topic = SNSCreator.createSNSTopic(this, "budgetsAlertTopic");
