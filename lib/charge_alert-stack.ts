@@ -7,7 +7,8 @@ import { SNSCreator } from './services/sns/creator';
 import { Topic } from 'aws-cdk-lib/aws-sns';
 import { fields } from './fields';
 import { Role, ServicePrincipal } from 'aws-cdk-lib/aws-iam';
-import { chatbotParam } from './services/chatbot/interfaces';
+import { ChatbotParam } from './services/chatbot/interfaces';
+import { ChatbotCreator } from './services/chatbot/creator';
 
 export class ChargeAlertStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
@@ -30,13 +31,15 @@ export class ChargeAlertStack extends cdk.Stack {
     //Budgetsのアラート用SNS Topicを作成
     const SNSTopic: Topic = SNSCreator.createSNSTopic(this, "budgetsAlertTopic");
 
-    const chatbotParam: chatbotParam = {
+    const chatbotParam: ChatbotParam = {
       configurationName: "charge-alert",
       iamRoleArn: chatbotRole.roleArn,
       slackChannelID: "",
-      slackWorkspaceId: "",
-      snsTopicArns: SNSTopic.topicArn,
+      slackWorkspaceID: "",
+      snsTopicArns: [SNSTopic.topicArn],
     };
+
+    const chatbot = ChatbotCreator.createSlackChannelConfiguration(this, chatbotParam);
 
     
 
