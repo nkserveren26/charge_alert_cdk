@@ -2,6 +2,6 @@ export interface chatbotParam {
     configurationName: string,
     iamRoleArn: string,
     slackChannelID: string,
-    slackWorkspaceId: number,
+    slackWorkspaceId: string,
     snsTopicArns: string,
 }
