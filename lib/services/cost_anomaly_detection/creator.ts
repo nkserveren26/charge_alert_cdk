@@ -12,6 +12,7 @@ export class CostAnomalyDetectionCreator {
                 monitorDimension: "SERVICE",
             });
             return costMonitor;
-        }
+    }
+    public static createAnomalySubscription(subscriptionName: string) {}
 
 }
