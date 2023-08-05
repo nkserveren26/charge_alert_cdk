@@ -1,4 +1,5 @@
-import { CfnAnomalyMonitor } from "aws-cdk-lib/aws-ce";
+import { CfnAnomalyMonitor, CfnAnomalySubscription } from "aws-cdk-lib/aws-ce";
+import { Topic } from "aws-cdk-lib/aws-sns";
 import { Construct } from "constructs";
 
 export class CostAnomalyDetectionCreator {
@@ -13,6 +14,24 @@ export class CostAnomalyDetectionCreator {
             });
             return costMonitor;
     }
-    public static createAnomalySubscription(subscriptionName: string) {}
+    public static createAnomalySubscription(
+        self: Construct, 
+        subscriptionName: string, 
+        monitor: CfnAnomalyMonitor,
+        snsTopic: Topic,
+    ): CfnAnomalySubscription {
+        const subscription = new CfnAnomalySubscription(self, subscriptionName, {
+            frequency: "IMMEDIATE",
+            monitorArnList: [monitor.attrMonitorArn],
+            subscribers: [{
+                address: snsTopic.topicArn,
+                type: "SNS",
+                status: "CONFIRMED",
+            }],
+            subscriptionName: subscriptionName,
+
+        });
+        return subscription;
+    }
 
 }
