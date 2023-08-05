@@ -9,6 +9,7 @@ import { fields } from './fields';
 import { Role, ServicePrincipal } from 'aws-cdk-lib/aws-iam';
 import { ChatbotParam } from './services/chatbot/interfaces';
 import { ChatbotCreator } from './services/chatbot/creator';
+import { IAMCreator } from './services/iam/creator';
 
 export class ChargeAlertStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
@@ -30,6 +31,12 @@ export class ChargeAlertStack extends cdk.Stack {
 
     //Budgetsのアラート用SNS Topicを作成
     const SNSTopic: Topic = SNSCreator.createSNSTopic(this, "budgetsAlertTopic");
+
+    //AWS BudgetsとCostalertsにSNSトピックへのPublish権限を付与するIAMポリシー
+    const snspolicy = IAMCreator.createSNSPublishPolocyForCostServices(SNSTopic);
+
+    //SNSTopicのリソースポリシーに権限を追加
+    SNSTopic.addToResourcePolicy(snspolicy);
 
     //SNSトピックに連携するChatbotのパラメータ
     const chatbotParam: ChatbotParam = {
