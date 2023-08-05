@@ -20,7 +20,6 @@ export class ChargeAlertStack extends cdk.Stack {
       budgetsName: "testbudget_cdk",
       budgetsType: "COST",
       timeUnit: "MONTHLY",
-      budgetAmount: 5,
       unit: "USD",
     };
 
