@@ -10,6 +10,7 @@ import { PolicyStatement, Role, ServicePrincipal } from 'aws-cdk-lib/aws-iam';
 import { ChatbotParam } from './services/chatbot/interfaces';
 import { ChatbotCreator } from './services/chatbot/creator';
 import { IAMCreator } from './services/iam/creator';
+import { CostAnomalyDetectionCreator } from './services/cost_anomaly_detection/creator';
 
 export class ChargeAlertStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
@@ -68,5 +69,8 @@ export class ChargeAlertStack extends cdk.Stack {
 
     //Budgetsの作成
     const budgets: CfnBudget = BudgetsCreator.createHalfYearAverageBudgets(this,budgetsParam, notificationsParams);
+
+    //Cost Anomaly Detectionの作成
+    const costMonitor = CostAnomalyDetectionCreator.createCostMonitorForAWSServices(this, "cost-monitor-services");
   }
 }
