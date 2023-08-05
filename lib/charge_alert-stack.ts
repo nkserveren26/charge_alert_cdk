@@ -31,22 +31,20 @@ export class ChargeAlertStack extends cdk.Stack {
     //Budgetsのアラート用SNS Topicを作成
     const SNSTopic: Topic = SNSCreator.createSNSTopic(this, "budgetsAlertTopic");
 
+    //SNSトピックに連携するChatbotのパラメータ
     const chatbotParam: ChatbotParam = {
       configurationName: "charge-alert",
       iamRoleArn: chatbotRole.roleArn,
-      slackChannelID: "",
-      slackWorkspaceID: "",
+      slackChannelID: "C05L4SQHKFU",
+      slackWorkspaceID: "T05KC4F4V9Q",
       snsTopicArns: [SNSTopic.topicArn],
     };
 
+    //ChatbotのSlackワークスペースに通知先チャンネルを設定
     const chatbot = ChatbotCreator.createSlackChannelConfiguration(this, chatbotParam);
 
-    
 
-    //SNS Topicにメールアドレスをサブスクライブ
-    SNSCreator.addEmailSubscription(SNSTopic, fields.notification_email);
-
-    //アラート通知の設定用パラメーター
+    //Budgetsアラート通知の設定用パラメーター
     const notificationsParams: CfnBudget.NotificationWithSubscribersProperty[] = [
       {
         notification: {
