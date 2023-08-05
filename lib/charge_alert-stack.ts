@@ -6,7 +6,7 @@ import { CfnBudget } from 'aws-cdk-lib/aws-budgets';
 import { SNSCreator } from './services/sns/creator';
 import { Topic } from 'aws-cdk-lib/aws-sns';
 import { fields } from './fields';
-import { Role, ServicePrincipal } from 'aws-cdk-lib/aws-iam';
+import { PolicyStatement, Role, ServicePrincipal } from 'aws-cdk-lib/aws-iam';
 import { ChatbotParam } from './services/chatbot/interfaces';
 import { ChatbotCreator } from './services/chatbot/creator';
 import { IAMCreator } from './services/iam/creator';
@@ -23,7 +23,7 @@ export class ChargeAlertStack extends cdk.Stack {
       unit: "USD",
     };
 
-    const chatbotRole = new Role(this, "chatbot-role", {
+    const chatbotRole: Role = new Role(this, "chatbot-role", {
       roleName: "chatbot-role",
       assumedBy: new ServicePrincipal("sns.amazonaws.com"),
     });
@@ -32,7 +32,7 @@ export class ChargeAlertStack extends cdk.Stack {
     const SNSTopic: Topic = SNSCreator.createSNSTopic(this, "budgetsAlertTopic");
 
     //AWS BudgetsとCostalertsにSNSトピックへのPublish権限を付与するIAMポリシー
-    const snspolicy = IAMCreator.createSNSPublishPolocyForCostServices(SNSTopic);
+    const snspolicy: PolicyStatement = IAMCreator.createSNSPublishPolocyForCostServices(SNSTopic);
 
     //SNSTopicのリソースポリシーに権限を追加
     SNSTopic.addToResourcePolicy(snspolicy);
