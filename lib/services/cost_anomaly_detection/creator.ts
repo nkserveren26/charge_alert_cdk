@@ -20,7 +20,7 @@ export class CostAnomalyDetectionCreator {
         monitor: CfnAnomalyMonitor,
         snsTopic: Topic,
     ): CfnAnomalySubscription {
-        const subscription = new CfnAnomalySubscription(self, subscriptionName, {
+        const subscription: CfnAnomalySubscription = new CfnAnomalySubscription(self, subscriptionName, {
             frequency: "IMMEDIATE",
             monitorArnList: [monitor.attrMonitorArn],
             subscribers: [{
