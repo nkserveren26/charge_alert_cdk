@@ -14,7 +14,7 @@ export class CostAnomalyDetectionCreator {
             });
             return costMonitor;
     }
-    public static createAnomalySubscription(
+    public static createAnomalySubscriptionOfImmediate(
         self: Construct, 
         subscriptionName: string, 
         monitor: CfnAnomalyMonitor,
@@ -34,7 +34,7 @@ export class CostAnomalyDetectionCreator {
                     "MatchOptions": ["GREATER_THAN_OR_EQUAL"],
                     "Values": ["20"]
                 }
-            }`
+            }`,
         });
         return subscription;
     }
