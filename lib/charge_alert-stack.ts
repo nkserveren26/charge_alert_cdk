@@ -80,6 +80,5 @@ export class ChargeAlertStack extends cdk.Stack {
     //コストモニターの作成
     const costMonitor = CostAnomalyDetectionCreator.createCostMonitorForAWSServices(this, "cost-monitor-services");
     const anomalySubscription = CostAnomalyDetectionCreator.createAnomalySubscriptionOfImmediate(this, "anomaly-alert", costMonitor, SNSTopic, thresholdParam);
-
   }
 }

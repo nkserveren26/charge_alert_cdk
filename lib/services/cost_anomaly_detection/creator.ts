@@ -41,5 +41,4 @@ export class CostAnomalyDetectionCreator {
         });
         return subscription;
     }
-
 }
