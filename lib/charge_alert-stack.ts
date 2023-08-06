@@ -6,7 +6,6 @@ import { BudgetParam } from './services/budgets/interfaces';
 import { CfnBudget } from 'aws-cdk-lib/aws-budgets';
 import { SNSCreator } from './services/sns/creator';
 import { Topic } from 'aws-cdk-lib/aws-sns';
-import { fields } from './fields';
 import { PolicyStatement, Role, ServicePrincipal } from 'aws-cdk-lib/aws-iam';
 import { ChatbotParam } from './services/chatbot/interfaces';
 import { ChatbotCreator } from './services/chatbot/creator';
