@@ -28,7 +28,13 @@ export class CostAnomalyDetectionCreator {
                 type: "SNS",
             }],
             subscriptionName: subscriptionName,
-            threshold: 1,
+            thresholdExpression: `{
+                "Dimensions": {
+                "Key": "ANOMALY_TOTAL_IMPACT_PERCENTAGE",
+                "MatchOptions": ["GREATER_THAN_OR_EQUAL"],
+                "Values": ["100"]
+                }
+            }`
         });
         return subscription;
     }
