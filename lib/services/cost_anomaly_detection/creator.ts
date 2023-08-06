@@ -29,7 +29,7 @@ export class CostAnomalyDetectionCreator {
                 status: "CONFIRMED",
             }],
             subscriptionName: subscriptionName,
-
+            threshold: 1,
         });
         return subscription;
     }
