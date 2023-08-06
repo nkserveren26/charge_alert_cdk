@@ -1,6 +1,7 @@
 import { CfnAnomalyMonitor, CfnAnomalySubscription } from "aws-cdk-lib/aws-ce";
 import { Topic } from "aws-cdk-lib/aws-sns";
 import { Construct } from "constructs";
+import { ThresholdParam } from "./interfaces";
 
 export class CostAnomalyDetectionCreator {
     public static createCostMonitorForAWSServices(
@@ -19,7 +20,9 @@ export class CostAnomalyDetectionCreator {
         subscriptionName: string, 
         monitor: CfnAnomalyMonitor,
         snsTopic: Topic,
+        thresholdParam: ThresholdParam,
     ): CfnAnomalySubscription {
+        const { Key, MatchOptions, Values } = thresholdParam;
         const subscription: CfnAnomalySubscription = new CfnAnomalySubscription(self, subscriptionName, {
             frequency: "IMMEDIATE",
             monitorArnList: [monitor.attrMonitorArn],
@@ -30,9 +33,9 @@ export class CostAnomalyDetectionCreator {
             subscriptionName: subscriptionName,
             thresholdExpression: `{
                 "Dimensions": {
-                    "Key": "ANOMALY_TOTAL_IMPACT_PERCENTAGE",
-                    "MatchOptions": ["GREATER_THAN_OR_EQUAL"],
-                    "Values": ["20"]
+                    "Key": ${Key},
+                    "MatchOptions": ${MatchOptions},
+                    "Values": ${Values}
                 }
             }`,
         });
