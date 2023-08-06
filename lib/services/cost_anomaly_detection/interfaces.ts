@@ -1,5 +1,5 @@
 export interface ThresholdParam {
     Key: string,
-    MatchOptions: string,
-    Values: string,
+    MatchOptions: string[],
+    Values: string[],
 }

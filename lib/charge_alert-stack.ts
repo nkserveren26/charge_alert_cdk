@@ -1,3 +1,4 @@
+import { ThresholdParam } from './services/cost_anomaly_detection/interfaces';
 import * as cdk from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 import { BudgetsCreator } from './services/budgets/creator';
@@ -70,8 +71,16 @@ export class ChargeAlertStack extends cdk.Stack {
     const budgets: CfnBudget = BudgetsCreator.createHalfYearAverageBudgets(this,budgetsParam, notificationsParams);
 
     //Cost Anomaly Detectionの作成
+    //アラートの閾値パラメーター
+    const thresholdParam: ThresholdParam = {
+      Key: "ANOMALY_TOTAL_IMPACT_PERCENTAGE",
+      MatchOptions: ["GREATER_THAN_OR_EQUAL"],
+      Values: [ "20" ],
+    };
+
+    //コストモニターの作成
     const costMonitor = CostAnomalyDetectionCreator.createCostMonitorForAWSServices(this, "cost-monitor-services");
-    const anomalySubscription = CostAnomalyDetectionCreator.createAnomalySubscriptionOfImmediate(this, "anomaly-alert", costMonitor, SNSTopic);
+    const anomalySubscription = CostAnomalyDetectionCreator.createAnomalySubscriptionOfImmediate(this, "anomaly-alert", costMonitor, SNSTopic, thresholdParam);
 
   }
 }
