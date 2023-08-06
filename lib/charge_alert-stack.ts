@@ -16,14 +16,6 @@ export class ChargeAlertStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
-    //Budgetsのパラメーター
-    const budgetsParam: BudgetParam = {
-      budgetsName: "testbudget_cdk",
-      budgetsType: "COST",
-      timeUnit: "MONTHLY",
-      unit: "USD",
-    };
-
     const chatbotRole: Role = new Role(this, "chatbot-role", {
       roleName: "chatbot-role",
       assumedBy: new ServicePrincipal("sns.amazonaws.com"),
@@ -50,6 +42,13 @@ export class ChargeAlertStack extends cdk.Stack {
     //ChatbotのSlackワークスペースに通知先チャンネルを設定
     const chatbot = ChatbotCreator.createSlackChannelConfiguration(this, chatbotParam);
 
+    //Budgetsのパラメーター
+    const budgetsParam: BudgetParam = {
+      budgetsName: "testbudget_cdk",
+      budgetsType: "COST",
+      timeUnit: "MONTHLY",
+      unit: "USD",
+    };
 
     //Budgetsアラート通知の設定用パラメーター
     const notificationsParams: CfnBudget.NotificationWithSubscribersProperty[] = [
