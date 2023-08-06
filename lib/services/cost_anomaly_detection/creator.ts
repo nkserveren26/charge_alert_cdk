@@ -26,7 +26,6 @@ export class CostAnomalyDetectionCreator {
             subscribers: [{
                 address: snsTopic.topicArn,
                 type: "SNS",
-                status: "CONFIRMED",
             }],
             subscriptionName: subscriptionName,
             threshold: 1,
