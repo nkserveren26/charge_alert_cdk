@@ -30,9 +30,9 @@ export class CostAnomalyDetectionCreator {
             subscriptionName: subscriptionName,
             thresholdExpression: `{
                 "Dimensions": {
-                "Key": "ANOMALY_TOTAL_IMPACT_PERCENTAGE",
-                "MatchOptions": ["GREATER_THAN_OR_EQUAL"],
-                "Values": ["100"]
+                    "Key": "ANOMALY_TOTAL_IMPACT_PERCENTAGE",
+                    "MatchOptions": ["GREATER_THAN_OR_EQUAL"],
+                    "Values": ["100"]
                 }
             }`
         });
