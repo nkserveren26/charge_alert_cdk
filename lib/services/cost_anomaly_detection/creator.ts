@@ -33,9 +33,9 @@ export class CostAnomalyDetectionCreator {
             subscriptionName: subscriptionName,
             thresholdExpression: `{
                 "Dimensions": {
-                    "Key": ${Key},
-                    "MatchOptions": ${MatchOptions},
-                    "Values": ${Values}
+                    "Key": "${Key}",
+                    "MatchOptions": [${MatchOptions}],
+                    "Values": [${Values}]
                 }
             }`,
         });

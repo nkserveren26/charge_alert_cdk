@@ -74,8 +74,8 @@ export class ChargeAlertStack extends cdk.Stack {
     //アラートの閾値パラメーター
     const thresholdParam: ThresholdParam = {
       Key: "ANOMALY_TOTAL_IMPACT_PERCENTAGE",
-      MatchOptions: ["GREATER_THAN_OR_EQUAL"],
-      Values: [ "20" ],
+      MatchOptions: "GREATER_THAN_OR_EQUAL",
+      Values: "20",
     };
 
     //コストモニターの作成
